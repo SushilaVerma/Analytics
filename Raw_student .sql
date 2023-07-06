@@ -1,10 +1,7 @@
 
 -- Automated in Hevo
-
- create table analytics.Raw_student 
- as(
 select 
-distinct st.student_id||st.enrollment_no||st.session_id as key,
+st.student_id||'_'||st.enrollment_no||'_'||COALESCE(st.session_id::VARCHAR, '') as key,
 current_date as last_Updated_at,
 st.student_id ,
 st.enrollment_no,
@@ -47,6 +44,4 @@ CASE WHEN POSITION(',' IN st.center_name_campus) > 0
               THEN SUBSTRING(st.center_name_campus, 1, POSITION('-' IN st.center_name_campus) - 1) 
          ELSE st.center_name_campus 
     END AS CITY_name
-from prod.student  st 
---where st.student_id =95337
-)
+from prod.student  st
