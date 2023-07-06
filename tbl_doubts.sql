@@ -1,5 +1,6 @@
+-- For now storing data only for this year
 select
-dq.dq_id||'_'||da.dq_ans_id as key
+dq.dq_id||'_'||coalesce (da.dq_ans_id,0)as key
 ,current_date as last_updated_at
 ,dq.dq_id
  ,dq.student_id
@@ -12,7 +13,7 @@ dq.dq_id||'_'||da.dq_ans_id as key
  when dq."type"=3 then 'Camera Image'
  when dq."type"=4 then 'Audio'
  when dq."type"=4 then 'Image and Audio'
-else 'others' end as Type_name
+else 'others' end as dq_Type_name
  ,dq.add_date  as dq_add_Date
  ,case when dq.satisfy =1 then 'Yes'
  else 'No' end as Satisfy
@@ -44,3 +45,4 @@ else 'others' end as da_Type_name
  from prod.doubt_question dq
  left join prod.doubt_answer da
  on dq.dq_id=da.dq_id
+where date(dq_add_Date)>='2023-01-01'
