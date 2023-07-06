@@ -1,5 +1,5 @@
 -- Added >=2023-01-01 data only 
-select main.student_id||class_id as key ,current_date as last_updated_at ,main.* ,
+select main.student_id||'_'||class_id as key ,current_date as last_updated_at ,main.* ,
 punch_status
 from 
   ( select main.*,student_id from (select a.class_id
