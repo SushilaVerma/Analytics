@@ -1,6 +1,5 @@
- 
 select *,
-enrollment_no||to_char( punch_date,'YYMMDD')||session_id as key
+enrollment_no||'_'||to_char( punch_date,'YYMMDD')||'_'||COALESCE(session_id::VARCHAR, '') as key
  ,current_date as Last_updated_at
  from(
  select 
@@ -24,7 +23,7 @@ min( case when  dval='null' then 'z' else dval end ) as dval
  from  prod.student_offline_attendance_new as att 
  where
 -- enrollment_no = 22961037
- att.punch_date>='2022-01-01'
+ att.punch_date>='2023-01-01'
  group by 1,2,3
  ) as att
  )
