@@ -1,6 +1,3 @@
--- Doubts Table 
-create table analytics.tbl_doubts
-as (
 select
 dq.dq_id||'_'||da.dq_ans_id as key
 ,current_date as last_updated_at
@@ -30,7 +27,7 @@ else 'others' end as Type_name
  ,case when da.user_type=2 then 'faculty'
  when da.user_type=3 then 'Student'
  when da.user_type=0 then '0-Not defined'
- else 'Others' end as dq_User_type
+ else 'Others' end as da_User_type
  ,da.answer_text
  ,da.image_path as da_image_path
  ,da.audio_path as da_audio_path
@@ -47,4 +44,3 @@ else 'others' end as da_Type_name
  from prod.doubt_question dq
  left join prod.doubt_answer da
  on dq.dq_id=da.dq_id
- )
