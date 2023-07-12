@@ -1,4 +1,6 @@
 -- 12th July 2023
+-- Created by Anuj
+
 
 select student_id || '_'||log_date as id, student_id,log_date, 
 count( case when page_name = 'Doubt Solution' then 1 else null end ) as doubt_solution,
